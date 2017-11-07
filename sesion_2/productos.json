@@ -1,0 +1,23 @@
+{
+    "A123": {
+        "nombre": "Coca-Cola",
+        "descripcion": "Refresco Cola",
+        "costo": 1.2,
+        "existencia": 10,
+        "venta": true
+    },
+    "B321": {
+        "nombre": "Galletas Caseras",
+        "descripcion": "Galletas Masa",
+        "costo": 0.8,
+        "existencia": 3,
+        "venta": true
+    },
+    "XA23": {
+        "nombre": "Cerveza Corona",
+        "descripcion": "Cerveza Internacional",
+        "costo": 1.5,
+        "existencia": 1000,
+        "venta": false
+    }
+}
