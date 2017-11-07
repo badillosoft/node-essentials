@@ -1,0 +1,7 @@
+<h1>Hola {{ nombre }}</h1>
+
+<ul>
+    {% for producto in productos %}
+    <li><strong>{{ producto.nombre }}</strong> - {{ producto.descripcion }}</li>
+    {% endfor %}
+</ul>

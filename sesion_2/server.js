@@ -1,7 +1,13 @@
 const http = require("http");
 const express = require("express");
+const nunjucks = require("nunjucks");
 
 const app = express();
+
+nunjucks.configure('views', {
+    autoescape: true,
+    express: app
+});
 
 const productos = require("./productos.json");
 
@@ -36,6 +42,24 @@ app.get("/productos", (req, res) => {
 
     res.send(productos);
 });
+
+// render envía una plantilla html desde la carpeta views
+app.get("/hola", (req, res) => {
+    res.render("hola.html", {
+        nombre: "Beto Cuevas",
+        productos: Object.keys(productos).map(key => productos[key])
+    });
+});
+
+/*app.get("/productos", (req, res) => {
+    const { costoMayor } = req.query;
+
+    const productosFiltrados = Object.keys(productos).filter(key => {
+        return productos[key].costo > Number(costoMayor || 0);
+    }).map(key => productos[key]);
+
+    res.send(productosFiltrados);
+});*/
 
 http.createServer(app).listen(3000, () => {
     console.log("Servidor iniciado en http://localhost:3000/");
