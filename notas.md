@@ -105,3 +105,32 @@ app.get("/hola", (req, res) => {
     res.send(`Hola ${nombre}, a = ${a}`);
 });
 ~~~
+
+## Conectar Mongo DB con Node JS
+
+> Instalar mongodb `$ npm install mongodb`
+
+> Crear una conexión a Mongo con MongoClient
+
+~~~js
+const MongoClient = require("mongodb").MongoClient;
+//const { MongoClient } = require("mongodb");
+
+const uri = "mongodb://localhost:27017/mitienda";
+
+MongoClient.connect(uri, (err, db) => {
+    if (err) {
+        console.log("Hubo un error", err);
+        return;
+    }
+
+    db.collection("productos").find({}).toArray((err, docs) => {
+        if (err) {
+            console.log("Hubo un error", err);
+            return;
+        }
+
+        console.log(docs);
+    });
+});
+~~~
