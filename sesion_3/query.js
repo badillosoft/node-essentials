@@ -14,3 +14,5 @@ function getIds(callback) {
         callback(docs);
     }
 }
+
+// Paginación en mongo: https://scalegrid.io/blog/fast-paging-with-mongodb/
