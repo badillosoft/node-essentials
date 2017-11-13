@@ -70,7 +70,7 @@ El cuerpo de una llamada post es conocido como el `body` de la petición, por ej
 const bodyParser = require("body-parser");
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlEncoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // ...
 
