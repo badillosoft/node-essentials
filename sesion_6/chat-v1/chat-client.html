@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Socket.IO chat</title>
+</head>
+
+<body>
+    <input placeholder="escribe un mensaje" />
+    <button onclick="send()">Enviar</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+    <script>
+        const socket = io("http://localhost:4000");
+        socket.emit("enter-room", "pepe_html");
+        
+        function send() {
+            const message = document.querySelector("input").value;
+            socket.emit("message", message);
+        }
+    </script>
+</body>
+
+</html>
