@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login App</title>
+    <style>
+        .container {
+            width: 400px;
+            padding: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 24pt;
+            background-color: #333;
+        }
+        .container-2 {
+            display: none;
+        }
+        input {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        button {
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <input id="user" type="text" placeholder="Usuario" >
+        <input id="password" type="password" placeholder="Contraseña" >
+        <button onclick="login()" >Ingresar</button>
+    </div>
+
+    <div class="container-2">
+        <h1>Bienvenido :D</h1>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+    <script>
+        const socket = io("http://localhost:4000");
+
+        socket.on("login-error", message => {
+            $(".container").fadeIn();
+        });
+
+        socket.on("login-success", token => {
+            // TODO: Mostrar Container 2
+            setTimeout(() => {
+                $(".container-2").fadeIn();
+            }, 500);
+        });
+
+        function login() {
+            const user = $("#user").val();
+            const password = $("#password").val();
+            socket.emit("login", user, password);
+            $(".container").fadeOut();
+        }
+    </script>
+</body>
+</html>

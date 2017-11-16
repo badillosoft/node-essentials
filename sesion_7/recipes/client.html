@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Recipes App</title>
+</head>
+<body>
+    <div id="recipe-new">
+        <h2>Nueva Receta</h2>
+        <form>
+            <input id="name" name="name" type="text" placeholder="Nombre de la receta">
+            <br>
+            <input id="picture" name="picture" type="file" value="Seleccionar imagen">
+            <br>
+            <textarea name="content" id="content" cols="30" rows="10"></textarea>
+            <br>
+            <input type="submit" value="enviar">
+        </form>
+    </div>
+    <div id="recipes"></div>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+    <script>
+        $("form").on("submit", (e) => {
+            e.preventDefault();
+            $.ajax({
+                url: "http://localhost:3000/recipes/new",
+                method: "post",
+                dataType: "json",
+                data: {
+                    name: $("#name").val(),
+                    content: $("#content").val(),
+                },
+                success: () => {
+                    alert("Receta agregada");
+                },
+                error: xhr => {
+                    console.log(xhr);
+                }
+            });
+        });
+
+        function obtenerRecetas() {
+            $.ajax({
+                url: "http://localhost:3000/recipes",
+                method: "get",
+                dataType: "json",
+                success: recipes => {
+                    console.log(recipes);
+                    $("#recipes").html("");
+                    recipes.forEach(recipe => {
+                        $("#recipes").append(`
+                            <div>
+                                <p>${recipe.name}</p>
+                                <p>${recipe.content}</p>
+                            </div>
+                        `);
+                    });
+                },
+                error: xhr => {
+                    console.log(xhr);
+                }
+            });
+        }
+
+        const socket = io("http://localhost:3000");
+
+        socket.on("recipe-new", () => {
+            obtenerRecetas();
+        });
+
+        $(window).on("load", () => {
+            obtenerRecetas();
+        });
+    </script>
+</body>
+</html>
