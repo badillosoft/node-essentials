@@ -34,6 +34,14 @@
             data: {
                 username: $("#user").val(),
                 password: $("#password").val(),
+            },
+            success: data => {
+                console.log(data);
+                sessionStorage.setItem("username", data.username);
+                window.location.href = "/";
+            },
+            error: xhr => {
+                console.log(xhr);
             }
         });
     });

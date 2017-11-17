@@ -3,3 +3,29 @@
 {% block content %}
 <h1>Bienvenido al Chat v1.0</h1>
 {% endblock %}
+
+{% block scripts %}
+<script>
+    function getMessages(username) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: `http://localhost:3000/api/messages?username=${username}`,
+                method: "get",
+                dataType: "json",
+                success: messages => {
+                    console.log(messages);
+                },
+                error: xhr => {
+                    console.log(xhr);
+                }
+            });
+        });
+    }
+
+    $(window).on("load", () => {
+        const username = sessionStorage.getItem("username");
+
+        getMessages(username);
+    });
+</script>
+{% endblock %}

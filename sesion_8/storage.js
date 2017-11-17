@@ -18,7 +18,8 @@ function connect(url) {
 
 function login(username, password) {
     return new Promise((resolve, reject) => {
-        db.collection("users").findOne({ username, password }, (err, user) => {
+        db.collection("users").findOne({ username, password }, 
+            { _id: 0, password: 0 }, (err, user) => {
             if (err) {
                 reject(err);
                 return;
@@ -32,7 +33,21 @@ function login(username, password) {
     });
 }
 
+function getMessages(username) {
+    return new Promise((resolve, reject) => {
+        db.collection("messages").find({ to: username }, 
+            { _id: 0 }).toArray((err, messages) => {
+                if (err) {
+                    reject(err);
+                    return;
+                }
+                resolve(messages);
+            });
+    });
+}
+
 module.exports = {
     connect,
-    login
+    login,
+    getMessages
 };
