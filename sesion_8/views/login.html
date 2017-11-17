@@ -21,3 +21,21 @@
     <div class="col"></div>
 </div>
 {% endblock %}
+
+{% block scripts %}
+<script>
+    $("form").on("submit", e => {
+        e.preventDefault();
+
+        $.ajax({
+            url: "http://localhost:3000/api/login",
+            method: "post",
+            dataType: "json",
+            data: {
+                username: $("#user").val(),
+                password: $("#password").val(),
+            }
+        });
+    });
+</script>
+{% endblock %}
