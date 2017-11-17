@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col"></div>
+    <div class="col text-center">
+            <h1>Acceso a usuarios</h1>
+            <img src="https://n6-img-fp.akamaized.net/iconos-gratis/murcielago-con-las-alas-abiertas-logo-variante_318-46799.jpg?size=338&ext=jpg" alt="">
+        <form>
+            <div class="form-group">
+                <label for="user"></label>
+                <input class="form-control" id="user" name="user" type="text" placeholder="Usuario" >
+            </div>
+            <div class="form-group">
+                <label for="password"></label>
+                <input class="form-control" id="password" name="password" type="password" placeholder="Contraseña" >
+            </div>
+            <button class="btn btn-success btn-block">Ingresar</button>
+        </form>
+    </div>
+    <div class="col"></div>
+</div>
+{% endblock %}
